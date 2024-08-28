@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Euro zu Wumms/Doppel-Wumms Umrechner</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 600px;
+            margin: 20px;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        input {
+            padding: 10px;
+            width: 100%;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .highlighted-input {
+            background-color: #e6f7ff;
+            border: 2px solid #007bff;
+            font-weight: bold;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .image-container {
+            margin-top: 20px;
+        }
+        .image-container img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Euro zu Wumms/Doppel-Wumms Umrechner</h1>
+        
+        <!-- Highlighted input for total Euro amount -->
+        <input type="number" id="totalEuroInput" class="highlighted-input" placeholder="Betrag in Euro eingeben">
+        
+        <!-- Input fields for different amounts -->
+        <input type="number" id="hundertInput" placeholder="Betrag in Hundert Euro eingeben">
+        <input type="number" id="tausendInput" placeholder="Betrag in Tausend Euro eingeben">
+        <input type="number" id="zehntausendInput" placeholder="Betrag in Zehntausend Euro eingeben">
+        <input type="number" id="einhunderttausendInput" placeholder="Betrag in Einhunderttausend Euro eingeben">
+        <input type="number" id="millionenInput" placeholder="Betrag in Millionen Euro eingeben">
+        <input type="number" id="milliardenInput" placeholder="Betrag in Milliarden Euro eingeben">
+
+        <button onclick="convertToWumms()">Umrechnen</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <div class="image-container">
+        <img src="olaf_scholz.jpg" alt="Olaf Scholz">
+    </div>
+
+    <script>
+        function convertToWumms() {
+            // Check if total Euro input is provided
+            const totalEuro = parseFloat(document.getElementById('totalEuroInput').value) || 0;
+
+            // Other inputs
+            const hundert = parseFloat(document.getElementById('hundertInput').value) * 100 || 0;
+            const tausend = parseFloat(document.getElementById('tausendInput').value) * 1000 || 0;
+            const zehntausend = parseFloat(document.getElementById('zehntausendInput').value) * 10000 || 0;
+            const einhunderttausend = parseFloat(document.getElementById('einhunderttausendInput').value) * 100000 || 0;
+            const millionen = parseFloat(document.getElementById('millionenInput').value) * 1000000 || 0;
+            const milliarden = parseFloat(document.getElementById('milliardenInput').value) * 1000000000 || 0;
+
+            // Sum all the input values, giving priority to the total Euro input if provided
+            const euro = totalEuro || (hundert + tausend + zehntausend + einhunderttausend + millionen + milliarden);
+
+            // Constants for Wumms and Doppel-Wumms
+            const doppelWumms = 100000000000; // 100 Milliarden Euro
+            const wumms = 50000000000; // 50 Milliarden Euro
+
+            // Calculate the conversion
+            const resultDoppelWumms = euro / doppelWumms;
+            const resultWumms = euro / wumms;
+
+            // Display the results
+            document.getElementById('result').innerHTML = `
+                Das sind ungefähr ${resultDoppelWumms.toFixed(12)} Doppel-Wumms.<br>
+                Das sind ungefähr ${resultWumms.toFixed(12)} Wumms.<br>
+            `;
+        }
+    </script>
+</body>
+</html>
